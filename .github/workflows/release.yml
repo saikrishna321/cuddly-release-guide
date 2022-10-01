@@ -26,7 +26,6 @@ jobs:
           if_true: ${{ github.ref }}
           if_false: ${{ steps.bumpr.outputs.next_version }}
     
-      # Create release.
       - name: Release
         uses: justincy/github-action-npm-release@2.0.2
         id: release
