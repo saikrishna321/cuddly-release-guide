@@ -27,16 +27,13 @@ jobs:
           if_false: ${{ steps.bumpr.outputs.next_version }}
     
       # Create release.
-      - uses: actions/create-release@v1
-        env:
-          # This token is provided by Actions, you do not need to create your own token
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: ${{ steps.bumpr.outputs.message }}
-          draft: false
-          prerelease: false
+      - name: Release
+        uses: justincy/github-action-npm-release@v1.2.0
+        id: release
+      - name: Print release output
+        if: ${{ steps.release.outputs.released == 'true' }}
+        run: echo Release ID ${{ steps.release.outputs.release_id }}
+        
   release-check:
     if: github.event.action == 'labeled'
     runs-on: ubuntu-latest
