@@ -34,7 +34,7 @@ jobs:
         if: steps.release.outputs.released == 'true'
         with:
           node-version: 16
-          registry-url: https://registry.npmjs.org/
+          registry-url: 'https://registry.npmjs.org/'
       - name: Publish
         if: steps.release.outputs.released == 'true'
         - run: echo "//registry.npmjs.org/:_authToken=${{secrets.npm_token}}" > .npmrc 
